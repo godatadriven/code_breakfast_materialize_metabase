@@ -40,7 +40,7 @@ You can check that everything is working by running `psql --help`
 
 3. Run the following command in your terminal. This will both download the Materialize image and run the container.
 ```bash
-docker run -p 6875:6875 --name materialize materialize/materialized:v0.7.2
+docker run -p 6875:6875 --name materialize materialize/materialized:v0.7.3
 ```
 4. Then run the following from your terminal to connect to Materialize through the CLI:
 ```bash
@@ -97,10 +97,34 @@ CREATE VIEW code_breakfast.dummy_schema.market_orders AS
     FROM (SELECT text::jsonb AS val FROM code_breakfast.dummy_schema.market_orders_raw);
 ```
 
-## Build a materialized view
-
-
-## Create a dashboard in Metabase
+## Build a materialized view and create a dashboard in Metabase
+Let's built our first materialized view that will capture the bid prices of the last five minutes to visualize in a timeseries graph!
+1. Create the materialized view by running the following query from your Materialize terminal:
+```sql
+CREATE MATERIALIZED VIEW code_breakfast.dummy_schema.price_evolution AS
+    SELECT 
+        symbol AS company,
+        bid_price,
+        timestamp_col
+    FROM code_breakfast.dummy_schema.market_orders
+    WHERE timestamp_col >= (SELECT MAX(timestamp_col) FROM code_breakfast.dummy_schema.market_orders) - 300
+    ORDER BY timestamp_col DESC;
+```
+2. Click on *Browse all items* in the center of the Metabase starting page.
+3. Create a new collection by clicking the small folder on the top right corner (see image). We will store our dashboards and visuals in this collection.
+![Metabase create collection](imgs/create_collection_metabase.png)
+4. Click on the *Write SQL* icon of the top menu bar to go to the SQL workspace.
+![Metabase write SQL](imgs/write_sql_metabase.png)
+5. Select the materialize database.
+6. Write an SQL statement, such as:
+```sql
+SELECT * 
+FROM code_breakfast.dummy_schema.price_evolution
+```
+7. Configure your visuals as you desire!
+8. Click the save button in the top right corner and save it to the collection you just created!
+9. On the top menu, click the *+* button and then create a new dashboard, also linking it to your collection.
+10. Then, press the edit button in your dashboard and add your items!
 
 ## Go for your
 Now it's up to you to decide which kind of insights you want to get out of the data and how to visualize those!
