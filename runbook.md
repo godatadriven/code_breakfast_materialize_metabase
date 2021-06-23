@@ -7,6 +7,13 @@
     a. Mac (with Homebrew)
 ```bash
 # install libpq
+brew install libpq  
+# force libpq into /usr/local/bin directory
+brew link --force libpq  
+```
+If `--force` does not work, you can always follow the process bellow.
+```bash
+# install libpq
 brew install libpq
 # export the location of libpq's bin to PATH in your .bash_profile file
 vim .bash_profile
@@ -25,7 +32,7 @@ sudo apt-get install postgresql-client
 c. Windows<br>
 * Download your desired version from [Enterprise DB](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
 * In the prompted installation GUI, when asked to *Select Components*, select only *Command Line Tools*
-* Then add the location of the bin (usually C:\Program Files\PostgreSQL\<your_pg_version>\bin) to PATH, either by using the Windows GUI or add it only for the current CMD session by executing:
+* Then add the location of the bin (usually C:\Program Files\PostgreSQL\<your_pg_version>\bin) to PATH, either by using the Windows GUI or add it **only for the current CMD session** by executing:
 ```powershell
 set PATH=%PATH%;C:\Program Files\PostgreSQL\<your_pg_version>\bin
 ```
@@ -91,6 +98,7 @@ CREATE VIEW code_breakfast.dummy_schema.market_orders AS
 ```
 
 ## Build a materialized view
+
 
 ## Create a dashboard in Metabase
 

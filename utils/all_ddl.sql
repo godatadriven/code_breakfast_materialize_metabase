@@ -33,7 +33,8 @@ CREATE MATERIALIZED VIEW code_breakfast.dummy_schema.price_evolution AS
         bid_price,
         timestamp_col
     FROM code_breakfast.dummy_schema.market_orders
-    WHERE timestamp_col >= (SELECT MAX(timestamp_col) FROM code_breakfast.dummy_schema.market_orders) - 300;
+    WHERE timestamp_col >= (SELECT MAX(timestamp_col) FROM code_breakfast.dummy_schema.market_orders) - 300
+    ORDER BY timestamp_col DESC;
 
 CREATE MATERIALIZED VIEW code_breakfast.dummy_schema.delta_bid_price AS
 
