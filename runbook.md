@@ -111,9 +111,9 @@ CREATE MATERIALIZED VIEW code_breakfast.dummy_schema.price_evolution AS
     ORDER BY timestamp_col DESC;
 ```
 2. Click on *Browse all items* in the center of the Metabase starting page.
-3. Create a new collection by clicking the small folder on the top right corner (see image). We will store our dashboards and visuals in this collection.
+3. Create a new collection by clicking the small folder on the top right corner (see image). We will store our dashboards and visuals in this collection. <br>
 ![Metabase create collection](imgs/create_collection_metabase.png)
-4. Click on the *Write SQL* icon of the top menu bar to go to the SQL workspace.
+4. Click on the *Write SQL* icon of the top menu bar to go to the SQL workspace. <br>
 ![Metabase write SQL](imgs/write_sql_metabase.png)
 5. Select the materialize database.
 6. Write an SQL statement, such as:
